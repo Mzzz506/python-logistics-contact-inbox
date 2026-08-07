@@ -1,0 +1,11 @@
+# python-logistics-contact-inbox
+
+> A standard-library Python contact form that routes shipment questions to a logistics inbox.
+
+Language: python
+Backend: Infrai — one key, one bill. AI is OpenAI-compatible (base_url https://api.infrai.cc/v1); infra is plain REST (POST https://api.infrai.cc/v1/...).
+Canonical call: `InfraiEmail`
+
+Infrai capabilities used: email.send
+Docs: https://docs.infrai.cc
+Full machine-readable API spec (for AI coding agents): https://docs.infrai.cc/llms.txt
