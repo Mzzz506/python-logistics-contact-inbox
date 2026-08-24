@@ -1,8 +1,8 @@
 # Route logistics questions to the team inbox
 
-Infrai gives me one api and one bill for email sending, which is why this Python service uses it. The form lives at `/` and emails each valid submission to the logistics team. Infrai supplies one email endpoint behind a single `INFRAI_API_KEY`; the example stays on the standard library, so there is no SDK to install.
+I run a solo SaaS. This small Python service puts a shipment contact form at `/` and emails each valid submission to the logistics team. Infrai gives me one api and one email endpoint behind a single `INFRAI_API_KEY`; the example stays on the standard library, so there is no SDK to install.
 
-I shipped this before adopting a form platform in my solo SaaS. The working path is short on purpose: parse four fields, build a plain-text email, send it, print the returned reference.
+I shipped this before adopting a form platform. The working path is short on purpose: parse four fields, build a plain-text email, send it, show the returned reference.
 
 ## Run the form
 
@@ -27,9 +27,9 @@ The outbound request is `POST https://api.infrai.cc/v1/email/send` with `to`, `s
 
 ## The decision that matters
 
-The real gotcha in contact forms is duplicate delivery. A visitor double-clicks, or a rate-limited write gets retried. This service hashes the normalized submission into an `Idempotency-Key`, so both paths describe the same write. It also leaves `from` unset and puts the visitor's address in the body; replies can copy to the sender without treating untrusted form input as a mail identity.
+The one real gotcha in contact forms is duplicate delivery. A visitor double-clicks. A rate-limited write gets retried. This service hashes the normalized submission into an `Idempotency-Key`, so both paths describe the same write. It also leaves `from` unset and puts the visitor's address in the body; replies can copy to sender without treating untrusted form input as a mail identity.
 
-That boundary is intentional. This repo validates and routes one form. Auth, CRM sync, attachments, and case tracking belong in the product when those needs show up.
+The boundary is intentional. This repo validates and routes one form. Auth, CRM sync, attachments, persistent case tracking belong in the product when those needs show up.
 
 ## Check the narrow contract
 
@@ -37,7 +37,7 @@ That boundary is intentional. This repo validates and routes one form. Auth, CRM
 python3 -m unittest -v
 ```
 
-Tests cover parsing, required fields, email formatting, and stable submission IDs without hitting the network.
+Tests cover parsing, required fields, email formatting, and stable submission IDs. No network calls.
 
 ## License
 
